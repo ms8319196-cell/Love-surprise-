@@ -1,186 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Love Surprise ❤️</title>
+<title>My Surprise ❤️</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #16001f, #4b073d, #17001f);
+    margin: 0;
+    background: black;
     color: white;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     overflow: hidden;
 }
 
-.container {
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    padding: 35px 20px;
-}
-
-.heart {
-    font-size: 75px;
-    animation: beat 1s infinite;
-    margin-bottom: 20px;
+#login {
+    margin-top: 35vh;
 }
 
 h1 {
-    font-size: 38px;
-    margin-bottom: 15px;
+    color: pink;
 }
 
-.subtitle {
-    font-size: 18px;
-    opacity: 0.9;
-    margin-bottom: 30px;
-    line-height: 1.6;
+input {
+    padding: 12px;
+    width: 220px;
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 16px;
 }
 
 button {
+    margin-top: 15px;
+    padding: 12px 25px;
     border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    background: #ff3b8d;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 20px #ff3b8d;
+    border-radius: 25px;
+    background: pink;
+    color: black;
+    font-size: 16px;
 }
 
-button:active {
-    transform: scale(0.95);
-}
-
-#message {
+#heart {
     display: none;
-    margin-top: 30px;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(8px);
-    line-height: 1.8;
-    font-size: 18px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
-.floating-heart {
-    position: fixed;
-    bottom: -30px;
-    font-size: 25px;
-    animation: floatUp 5s linear forwards;
-    pointer-events: none;
+.love {
+    position: absolute;
+    color: #ff9ecf;
+    font-size: 13px;
+    font-weight: bold;
+    animation: show 1s forwards;
+    opacity: 0;
 }
 
-@keyframes beat {
-    0%, 100% {
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
         transform: scale(1);
     }
-    50% {
-        transform: scale(1.2);
-    }
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-110vh);
-        opacity: 0;
-    }
-}
-
-.small {
-    margin-top: 30px;
-    font-size: 13px;
-    opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div id="login">
 
-    <div class="heart">❤️</div>
+    <h1>💌 My Secret Surprise 💌</h1>
 
-    <h1>A Little Surprise 💕</h1>
+    <p>Enter the secret keyword ❤️</p>
 
-    <p class="subtitle">
-        Sometimes a small message can make a big difference...
-    </p>
+    <input
+        id="keyword"
+        type="text"
+        placeholder="Enter keyword"
+    >
 
-    <button onclick="showSurprise()">
-        Open My Surprise 💌
+    <br>
+
+    <button onclick="openSurprise()">
+        Open ❤️
     </button>
-
-    <div id="message">
-        <h2>💖 For You 💖</h2>
-
-        <p>
-            You are someone truly special.  
-            I hope this little surprise brings a smile to your face. 😊
-        </p>
-
-        <p>
-            No matter how simple this page is,
-            the feeling behind it is real. ❤️
-        </p>
-
-        <p>
-            Keep smiling and keep shining! ✨
-        </p>
-    </div>
-
-    <p class="small">
-        Made with ❤️ and a little bit of code.
-    </p>
 
 </div>
 
+
+<div id="heart">
+
+    <h1>I LOVE YOU ❤️</h1>
+
+</div>
+
+
 <script>
 
-function showSurprise() {
+function openSurprise() {
 
-    document.getElementById("message").style.display = "block";
+    let keyword =
+        document.getElementById("keyword").value
+        .trim()
+        .toUpperCase();
 
-    for (let i = 0; i < 20; i++) {
+    if (keyword !== "ILOVEYOU") {
 
-        setTimeout(function() {
+        alert("Wrong keyword 😜");
 
-            let heart = document.createElement("div");
+        return;
+    }
 
-            heart.className = "floating-heart";
+    document.getElementById("login").style.display = "none";
 
-            heart.innerHTML = "❤️";
+    document.getElementById("heart").style.display = "block";
 
-            heart.style.left = Math.random() * 100 + "vw";
+    createHeart();
+}
 
-            heart.style.fontSize =
-                (15 + Math.random() * 25) + "px";
 
-            document.body.appendChild(heart);
+function createHeart() {
 
-            setTimeout(function() {
-                heart.remove();
-            }, 5000);
+    let heart = document.getElementById("heart");
 
-        }, i * 150);
+    for (let i = 0; i < 100; i++) {
+
+        let t =
+            (Math.PI * 2 * i) / 100;
+
+        let x =
+            16 * Math.pow(Math.sin(t), 3);
+
+        let y =
+            13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t);
+
+        let text =
+            document.createElement("div");
+
+        text.className = "love";
+
+        text.innerHTML = "I LOVE YOU";
+
+        text.style.left =
+            (50 + x * 2.3) + "%";
+
+        text.style.top =
+            (45 - y * 2.3) + "%";
+
+        text.style.animationDelay =
+            (i * 0.04) + "s";
+
+        heart.appendChild(text);
     }
 }
 
