@@ -7,10 +7,9 @@
 <title>My Love ❤️</title>
 
 <style>
-
 body {
     margin: 0;
-    background: black;
+    background: #000;
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
@@ -32,7 +31,6 @@ input {
     border-radius: 25px;
     text-align: center;
     font-size: 16px;
-    outline: none;
 }
 
 button {
@@ -59,25 +57,21 @@ button {
     font-size: 12px;
     font-weight: bold;
     white-space: nowrap;
-
     opacity: 0;
     animation: appear 0.8s forwards;
 }
 
 @keyframes appear {
-
-    0% {
+    from {
         opacity: 0;
         transform: scale(0);
     }
 
-    100% {
+    to {
         opacity: 1;
         transform: scale(1);
     }
-
 }
-
 </style>
 </head>
 
@@ -89,11 +83,7 @@ button {
 
     <p>Enter the secret keyword ❤️</p>
 
-    <input
-        id="keyword"
-        type="text"
-        placeholder="Secret keyword"
-    >
+    <input id="keyword" type="text" placeholder="Secret keyword">
 
     <br>
 
@@ -103,49 +93,38 @@ button {
 
 </div>
 
-
 <div id="heart"></div>
-
 
 <script>
 
 function startLove() {
 
-    let keyword =
-        document.getElementById("keyword").value
+    let keyword = document
+        .getElementById("keyword")
+        .value
         .trim()
         .toUpperCase();
 
     if (keyword !== "ILOVEYOU") {
-
         alert("Wrong keyword ❤️");
-
         return;
     }
 
     document.getElementById("login").style.display = "none";
-
     document.getElementById("heart").style.display = "block";
 
     makeHeart();
 }
 
-
 function makeHeart() {
 
-    let heart =
-        document.getElementById("heart");
-
-    /*
-       Heart equation
-    */
+    let heart = document.getElementById("heart");
 
     let points = [];
 
     for (let t = 0; t < Math.PI * 2; t += 0.08) {
 
-        let x =
-            16 * Math.pow(Math.sin(t), 3);
+        let x = 16 * Math.pow(Math.sin(t), 3);
 
         let y =
             13 * Math.cos(t)
@@ -153,44 +132,20 @@ function makeHeart() {
             - 2 * Math.cos(3 * t)
             - Math.cos(4 * t);
 
-        points.push({
-            x: x,
-            y: y
-        });
+        points.push({x: x, y: y});
     }
 
+    for (let i = 0; i < 150; i++) {
 
-    /*
-       Create many I LOVE YOU
-       words around the heart
-    */
+        let point = points[i % points.length];
 
-    let count = 150;
-
-    for (let i = 0; i < count; i++) {
-
-        let point =
-            points[i % points.length];
-
-        let love =
-            document.createElement("div");
+        let love = document.createElement("div");
 
         love.className = "love";
-
         love.innerHTML = "I LOVE YOU";
 
-
-        /*
-           Small random movement
-           makes the heart look fuller
-        */
-
-        let randomX =
-            (Math.random() - 0.5) * 4;
-
-        let randomY =
-            (Math.random() - 0.5) * 4;
-
+        let randomX = (Math.random() - 0.5) * 4;
+        let randomY = (Math.random() - 0.5) * 4;
 
         love.style.left =
             (50 + point.x * 2.2 + randomX) + "%";
@@ -198,14 +153,11 @@ function makeHeart() {
         love.style.top =
             (45 - point.y * 2.2 + randomY) + "%";
 
-
         love.style.animationDelay =
             (i * 0.035) + "s";
 
-
         heart.appendChild(love);
     }
-
 }
 
 </script>
