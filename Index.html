@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise 💗</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #050509;
+    color: white;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#startScreen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+}
+
+.title {
+    color: #ffb6c1;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #ddd;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+#secretInput {
+    width: 260px;
+    max-width: 85%;
+    padding: 14px 18px;
+    border-radius: 30px;
+    border: 1px solid #ffb6c1;
+    outline: none;
+    background: #111118;
+    color: #ffb6c1;
+    text-align: center;
+    font-size: 16px;
+}
+
+#secretInput::placeholder {
+    color: #888;
+}
+
+#openButton {
+    margin-top: 15px;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 30px;
+    background: #ffb6c1;
+    color: #111;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#error {
+    color: #ff8fa3;
+    margin-top: 15px;
+    display: none;
+}
+
+#heartScreen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffb6c1;
+    opacity: 0;
+}
+
+#bigMessage {
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow:
+        0 0 8px #ffb6c1,
+        0 0 20px #ffb6c1;
+}
+
+#smallMessage {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ffdce2;
+}
+
+.showMessage {
+    animation: appear 2s ease forwards;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+
+    <div class="title">
+        A Little Surprise
+    </div>
+
+    <div class="subtitle">
+        Someone left you a secret...
+        <br>
+        Type the special word.
+    </div>
+
+    <input
+        id="secretInput"
+        type="text"
+        placeholder="Type the secret..."
+        autocomplete="off"
+    >
+
+    <button id="openButton">
+        Open Surprise
+    </button>
+
+    <div id="error">
+        Hmm... that's not the secret word
+    </div>
+
+</div>
+
+<div id="heartScreen">
+
+    <canvas id="canvas"></canvas>
+
+    <div id="message">
+
+        <div id="bigMessage">
+            I LOVE YOU
+        </div>
+
+        <div id="smallMessage">
+            You are special to me
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const SECRET_WORD = "ILOVEYOU";
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const startScreen = document.getElementById("startScreen");
+const heartScreen = document.getElementById("heartScreen");
+
+const input = document.getElementById("secretInput");
+const button = document.getElementById("openButton");
+const error = document.getElementById("error");
+
+const message = document.getElementById("message");
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
+function checkSecret() {
+
+    const value = input.value
+        .replace(/\s/g, "")
+        .toUpperCase();
+
+    if (value === SECRET_WORD) {
+
+        startScreen.style.display = "none";
+        heartScreen.style.display = "block";
+
+        startAnimation();
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
+
+button.addEventListener("click", checkSecret);
+
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        checkSecret();
+    }
+
+});
+
+function heartPoint(t, scale) {
+
+    const x =
+        16 * Math.pow(Math.sin(t), 3);
+
+    const y =
+        13 * Math.cos(t)
+        -
