@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little Surprise 💗</title>
+
+<title>Love Surprise ❤️</title>
 
 <style>
 * {
@@ -13,235 +14,177 @@
 }
 
 body {
-    background: #050509;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #16001f, #4b073d, #17001f);
     color: white;
     font-family: Arial, sans-serif;
-    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-#startScreen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.container {
+    width: 90%;
+    max-width: 500px;
     text-align: center;
-    padding: 25px;
+    padding: 35px 20px;
 }
 
-.title {
-    color: #ffb6c1;
-    font-size: 30px;
-    margin-bottom: 12px;
+.heart {
+    font-size: 75px;
+    animation: beat 1s infinite;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
 }
 
 .subtitle {
-    color: #ddd;
-    font-size: 15px;
-    margin-bottom: 25px;
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    line-height: 1.6;
 }
 
-#secretInput {
-    width: 260px;
-    max-width: 85%;
-    padding: 14px 18px;
-    border-radius: 30px;
-    border: 1px solid #ffb6c1;
-    outline: none;
-    background: #111118;
-    color: #ffb6c1;
-    text-align: center;
-    font-size: 16px;
-}
-
-#secretInput::placeholder {
-    color: #888;
-}
-
-#openButton {
-    margin-top: 15px;
-    padding: 13px 30px;
+button {
     border: none;
+    padding: 15px 30px;
     border-radius: 30px;
-    background: #ffb6c1;
-    color: #111;
-    font-size: 16px;
+    background: #ff3b8d;
+    color: white;
+    font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff3b8d;
 }
 
-#error {
-    color: #ff8fa3;
-    margin-top: 15px;
-    display: none;
-}
-
-#heartScreen {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-}
-
-canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+button:active {
+    transform: scale(0.95);
 }
 
 #message {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #ffb6c1;
-    opacity: 0;
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    line-height: 1.8;
+    font-size: 18px;
 }
 
-#bigMessage {
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow:
-        0 0 8px #ffb6c1,
-        0 0 20px #ffb6c1;
+.floating-heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    animation: floatUp 5s linear forwards;
+    pointer-events: none;
 }
 
-#smallMessage {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #ffdce2;
-}
-
-.showMessage {
-    animation: appear 2s ease forwards;
-}
-
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.7);
+@keyframes beat {
+    0%, 100% {
+        transform: scale(1);
     }
+    50% {
+        transform: scale(1.2);
+    }
+}
 
-    to {
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
     }
+
+    100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+.small {
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
 
-<div id="startScreen">
+<div class="container">
 
-    <div class="title">
-        A Little Surprise
-    </div>
+    <div class="heart">❤️</div>
 
-    <div class="subtitle">
-        Someone left you a secret...
-        <br>
-        Type the special word.
-    </div>
+    <h1>A Little Surprise 💕</h1>
 
-    <input
-        id="secretInput"
-        type="text"
-        placeholder="Type the secret..."
-        autocomplete="off"
-    >
+    <p class="subtitle">
+        Sometimes a small message can make a big difference...
+    </p>
 
-    <button id="openButton">
-        Open Surprise
+    <button onclick="showSurprise()">
+        Open My Surprise 💌
     </button>
 
-    <div id="error">
-        Hmm... that's not the secret word
-    </div>
-
-</div>
-
-<div id="heartScreen">
-
-    <canvas id="canvas"></canvas>
-
     <div id="message">
+        <h2>💖 For You 💖</h2>
 
-        <div id="bigMessage">
-            I LOVE YOU
-        </div>
+        <p>
+            You are someone truly special.  
+            I hope this little surprise brings a smile to your face. 😊
+        </p>
 
-        <div id="smallMessage">
-            You are special to me
-        </div>
+        <p>
+            No matter how simple this page is,
+            the feeling behind it is real. ❤️
+        </p>
 
+        <p>
+            Keep smiling and keep shining! ✨
+        </p>
     </div>
+
+    <p class="small">
+        Made with ❤️ and a little bit of code.
+    </p>
 
 </div>
 
 <script>
 
-const SECRET_WORD = "ILOVEYOU";
+function showSurprise() {
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+    document.getElementById("message").style.display = "block";
 
-const startScreen = document.getElementById("startScreen");
-const heartScreen = document.getElementById("heartScreen");
+    for (let i = 0; i < 20; i++) {
 
-const input = document.getElementById("secretInput");
-const button = document.getElementById("openButton");
-const error = document.getElementById("error");
+        setTimeout(function() {
 
-const message = document.getElementById("message");
+            let heart = document.createElement("div");
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+            heart.className = "floating-heart";
 
-resizeCanvas();
+            heart.innerHTML = "❤️";
 
-window.addEventListener("resize", resizeCanvas);
+            heart.style.left = Math.random() * 100 + "vw";
 
-function checkSecret() {
+            heart.style.fontSize =
+                (15 + Math.random() * 25) + "px";
 
-    const value = input.value
-        .replace(/\s/g, "")
-        .toUpperCase();
+            document.body.appendChild(heart);
 
-    if (value === SECRET_WORD) {
+            setTimeout(function() {
+                heart.remove();
+            }, 5000);
 
-        startScreen.style.display = "none";
-        heartScreen.style.display = "block";
-
-        startAnimation();
-
-    } else {
-
-        error.style.display = "block";
-
+        }, i * 150);
     }
 }
 
-button.addEventListener("click", checkSecret);
+</script>
 
-input.addEventListener("keydown", function(event) {
-
-    if (event.key === "Enter") {
-        checkSecret();
-    }
-
-});
-
-function heartPoint(t, scale) {
-
-    const x =
-        16 * Math.pow(Math.sin(t), 3);
-
-    const y =
-        13 * Math.cos(t)
-        -
+</body>
+</html>
